@@ -3,7 +3,6 @@ package tech.allegro.wildsnake.unit;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.Model;
 import tech.allegro.wildsnake.application.HomeController;
 import tech.allegro.wildsnake.integration.builders.ShowCaseItemBuilder;
@@ -34,12 +33,11 @@ public class HomeControllerTests {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        homeController = new HomeController(showcaseService);
+        homeController = new HomeController(showcaseService, "Under Constr");
     }
 
     @Test
     public void shouldReturnHomePage() throws Exception {
-        ReflectionTestUtils.setField(homeController, "pageMessage", "Under Constr");
         showcaseItems = Arrays.asList(new ShowCaseItemBuilder("title1").withPrice(BigDecimal.TEN).build(), new ShowCaseItemBuilder("title2").withPrice(BigDecimal.TEN).build());
         when(showcaseService.getItems()).thenReturn(showcaseItems);
 
